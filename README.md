@@ -12,7 +12,7 @@ Web Client (Next.js) → WebSocket Server (Python) → DeepGram STT → OpenAI �
 2. **WebSocket Server**: Manages connections and coordinates between services. This is used as a router between different services. The main complexity here stems from the DeepGram STT API where late transcriptions and other errors need to be handled. It uses websockets to communicate with the web client.
 It runs a periodic task to check the transcription queue and decides whether to send data back to the web client and OpenAI service.
 3. **Audio Service**: Handles audio streaming and transcript processing from DeepGram. It uses websockets to connect with DeepGram and tracks timestamps of incoming audio.
-4. **OpenAI**: Generates AI responses based on user transcripts. It implements an agentic approach to parse and check what information is still missing and what should be asked next. It utilizes OpenAI's parsing and chat completion endpoint and stores internal call state in memory. It sends data back to the client in sentences to reduce the delay between response generation and synthesis start.
+4. **OpenAI**: Generates AI responses based on user transcripts. It implements an agentic approach to parse and check what information is still missing and what should be asked next. It utilizes OpenAI's parsing and chat completion endpoints and stores internal call state in memory. It sends data back to the client in sentences using streaming to reduce the delay between response generation and synthesis start.
 
 ## Improvements
 
