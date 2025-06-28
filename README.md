@@ -12,11 +12,11 @@ Web Client (Next.js) → WebSocket Server (Python) → DeepGram STT → OpenAI �
 2. **WebSocket Server**: Manages connections and coordinates between services. This is used as a router between different services. The main complexity here stems from the DeepGram STT API where late transcriptions and other errors need to be handled. It uses websockets to communicate with the web client.
 It runs a periodic task to check the transcription queue and decides whether to send data back to the web client and OpenAI service.
 3. **Audio Service**: Handles audio streaming and transcript processing from DeepGram. It uses websockets to connect with DeepGram and tracks timestamps of incoming audio.
-4. **OpenAI**: Generates AI responses based on user transcripts. It implements an agentic approach to parse and check what information is still missing and what should be asked next. It utilizes OpenAI's parsing and chat completion endpoint and stores internal call state in memory. It sends data back to the client in sentences to reduce the delay between response generation and synthesis start.
+4. **OpenAI**: Generates AI responses based on user transcripts. It implements an agentic approach to parse and check what information is still missing and what should be asked next. It utilizes OpenAI's parsing and chat completion endpoints and stores internal call state in memory. It sends data back to the client in sentences using streaming to reduce the delay between response generation and synthesis start.
 
 ## Improvements
 
-1. The main imprivement is to configure the VAD + STT pipeline to run smoother together - sometimes audio is missed and sometimes DeepGram returns multiple transcriptions and does not work deterministaclly all the time. More time should be spent on working with DeepGram API to figure this out as this is currently the biggest source of latency in the pipeline
+1. The main improvement is to configure the VAD + STT pipeline to run smoother together - sometimes audio is missed and sometimes DeepGram returns multiple transcriptions and does not work deterministaclly all the time. More time should be spent on working with DeepGram API to figure this out as this is currently the biggest source of latency in the pipeline
 2. Using Redis or other messaging systems to store states (for example call state) and support multiple clients - currently system stores everything in memory and only supports a single client
 3. Setting up a proper OpenAI agent with more diverse scenarions and more natrual sounding speech.
 4. Error handling, websocket closure and restart processes.
