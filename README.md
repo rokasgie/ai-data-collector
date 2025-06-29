@@ -18,7 +18,7 @@ It runs a periodic task to check the transcription queue and decides whether to 
 
 1. The main improvement is to configure the VAD + STT pipeline to run smoother together - sometimes audio is missed and sometimes DeepGram returns multiple transcriptions and does not work deterministaclly all the time. More time should be spent on working with DeepGram API to figure this out as this is currently the biggest source of latency in the pipeline
 2. Using Redis or other messaging systems to store states (for example call state) and support multiple clients - currently system stores everything in memory and only supports a single client
-3. Setting up a proper OpenAI agent with more diverse scenarions and more natrual sounding speech.
+3. Setting up a proper OpenAI agent (for example LangGraph) with more diverse scenarions and more natrual sounding speech 
 4. Error handling, websocket closure and restart processes.
 
 ## Quick Start
